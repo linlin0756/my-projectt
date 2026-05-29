@@ -1,0 +1,1056 @@
+<base href="/my-project/">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI编程知识库与作品展示</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --text-color: #1f2937;
+            --light-text: #4b5563;
+            --background: #ffffff;
+            --surface: #f9fafb;
+            --border-color: #e5e7eb;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #818cf8;
+            --secondary-color: #a78bfa;
+            --accent-color: #f472b6;
+            --text-color: #f9fafb;
+            --light-text: #d1d5db;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --border-color: #334155;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--background);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* 导航栏 */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--secondary-color);
+            transform: rotate(180deg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* 主要内容 */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="50" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="30" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary-color);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 知识库区域 */
+        .knowledge-base {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .category-card p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .video-count {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* 折叠面板 */
+        .collapse-section {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .collapse-header {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.3s ease;
+        }
+
+        .collapse-header:hover {
+            background: var(--background);
+        }
+
+        .collapse-header::after {
+            content: '▼';
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .collapse-section.active .collapse-header::after {
+            transform: rotate(180deg);
+        }
+
+        .collapse-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapse-content.active {
+            max-height: 1000px;
+        }
+
+        .video-list {
+            padding: 0 2rem 2rem;
+        }
+
+        .video-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.3s ease;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-item:last-child {
+            border-bottom: none;
+        }
+
+        .video-item:hover {
+            background: var(--background);
+            transform: translateX(10px);
+        }
+
+        .video-thumbnail {
+            width: 120px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 8px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .video-info h4 {
+            color: var(--text-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .video-info p {
+            color: var(--light-text);
+            font-size: 0.875rem;
+        }
+
+        /* 作品展示 */
+        .portfolio {
+            margin-bottom: 60px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-card {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .portfolio-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image::before {
+            content: '💻';
+            position: absolute;
+            font-size: 5rem;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-content h3 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-content p {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* 弹窗 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2rem;
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--light-text);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: var(--background);
+            color: var(--text-color);
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .footer-content p {
+            color: var(--light-text);
+        }
+
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .video-thumbnail {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                width: calc(100% - 2rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AI编程知识库</div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#knowledge">AI编程知识库</a></li>
+                <li><a href="#portfolio">AI视频作品</a></li>
+                <li><a href="#contact" onclick="showContactModal()">联系我们</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <h1>AI编程知识库</h1>
+            <p>AI编程知识分享 · 个人AI视频作品展示</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#knowledge" class="cta-button">知识学习</a>
+                <a href="#portfolio" class="cta-button" style="background: var(--secondary-color); color: white;">作品展示</a>
+            </div>
+        </section>
+
+        <section id="knowledge" class="knowledge-base">
+            <h2 class="section-title">AI编程知识库</h2>
+            
+            <div class="category-grid">
+                <div class="category-card" data-category="python">
+                    <div class="category-icon">🐍</div>
+                    <h3>Python编程</h3>
+                    <p>从基础到进阶，掌握Python全栈开发技能</p>
+                    <span class="video-count">42 篇教程</span>
+                </div>
+                
+                <div class="category-card" data-category="ai">
+                    <div class="category-icon">🤖</div>
+                    <h3>人工智能</h3>
+                    <p>机器学习、深度学习、神经网络实战教程</p>
+                    <span class="video-count">36 篇文章</span>
+                </div>
+                
+                <div class="category-card" data-category="web">
+                    <div class="category-icon">🌐</div>
+                    <h3>AI Web开发</h3>
+                    <p>AI驱动的前端、后端、全栈开发技术</p>
+                    <span class="video-count">28 个项目</span>
+                </div>
+                
+                <div class="category-card" data-category="data">
+                    <div class="category-icon">📊</div>
+                    <h3>数据科学</h3>
+                    <p>数据分析、数据可视化、大数据处理技术</p>
+                    <span class="video-count">19 个视频</span>
+                </div>
+                
+                <div class="category-card" data-category="prompt">
+                    <div class="category-icon">💬</div>
+                    <h3>提示词工程</h3>
+                    <p>AI提示词设计、优化与实战技巧</p>
+                    <span class="video-count">52 篇指南</span>
+                </div>
+                
+                <div class="category-card" data-category="tools">
+                    <div class="category-icon">🛠️</div>
+                    <h3>AI工具集</h3>
+                    <p>实用AI开发工具、框架与资源推荐</p>
+                    <span class="video-count">108 个资源</span>
+                </div>
+            </div>
+
+            <!-- 折叠面板内容 -->
+            <div class="collapse-section">
+                <div class="collapse-header">
+                    <span>热门AI编程教程</span>
+                </div>
+                <div class="collapse-content">
+                    <div class="video-list">
+                        <div class="video-item" onclick="showVideoModal('AI基础入门', '从0到1理解人工智能核心概念', '60分钟')">
+                            <div class="video-thumbnail">▶️</div>
+                            <div class="video-info">
+                                <h4>AI基础入门：从0到1理解人工智能核心概念</h4>
+                                <p>60分钟 · 初学者友好</p>
+                            </div>
+                        </div>
+                        <div class="video-item" onclick="showVideoModal('Python机器学习实战', '使用Scikit-learn构建预测模型', '90分钟')">
+                            <div class="video-thumbnail">▶️</div>
+                            <div class="video-info">
+                                <h4>Python机器学习实战：使用Scikit-learn构建预测模型</h4>
+                                <p>90分钟 · 实战项目</p>
+                            </div>
+                        </div>
+                        <div class="video-item" onclick="showVideoModal('深度学习与神经网络', 'TensorFlow和PyTorch入门', '120分钟')">
+                            <div class="video-thumbnail">▶️</div>
+                            <div class="video-info">
+                                <h4>深度学习与神经网络：TensorFlow和PyTorch入门</h4>
+                                <p>120分钟 · 进阶课程</p>
+                            </div>
+                        </div>
+                        <div class="video-item" onclick="showVideoModal('AI图像处理', '使用OpenCV和CNN进行图像识别', '85分钟')">
+                            <div class="video-thumbnail">▶️</div>
+                            <div class="video-info">
+                                <h4>AI图像处理：使用OpenCV和CNN进行图像识别</h4>
+                                <p>85分钟 · 计算机视觉</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse-section">
+                <div class="collapse-header">
+                    <span>Web开发前沿技术</span>
+                </div>
+                <div class="collapse-content">
+                    <div class="video-list">
+                        <div class="video-item" onclick="showVideoModal('React 18新特性', '并发渲染与Suspense深度解析', '75分钟')">
+                            <div class="video-thumbnail">▶️</div>
+                            <div class="video-info">
+                                <h4>React 18新特性：并发渲染与Suspense深度解析</h4>
+                                <p>75分钟 · 前端框架</p>
+                            </div>
+                        </div>
+                        <div class="video-item" onclick="showVideoModal('Vue 3组合式API', '构建可维护的大型应用', '80分钟')">
+                            <div class="video-thumbnail">▶️</div>
+                            <div class="video-info">
+                                <h4>Vue 3组合式API：构建可维护的大型应用</h4>
+                                <p>80分钟 · 前端框架</p>
+                            </div>
+                        </div>
+                        <div class="video-item" onclick="showVideoModal('Node.js微服务架构', '使用Express和Docker构建分布式系统', '110分钟')">
+                            <div class="video-thumbnail">▶️</div>
+                            <div class="video-info">
+                                <h4>Node.js微服务架构：使用Express和Docker构建分布式系统</h4>
+                                <p>110分钟 · 后端开发</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio">
+            <h2 class="section-title">AI视频作品展示</h2>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-card" onclick="showVideoWorkModal('AI绘画入门教程', 'MidJourney从0到1精通指南', '15个视频 · 3小时')">
+                    <div class="portfolio-image">🎨</div>
+                    <div class="portfolio-content">
+                        <h3>AI绘画入门教程</h3>
+                        <p>MidJourney从0到1精通指南</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">MidJourney</span>
+                            <span class="tech-tag">Stable Diffusion</span>
+                            <span class="tech-tag">提示词</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-card" onclick="showVideoWorkModal('AI办公自动化', '用AI提升10倍工作效率', '22个视频 · 5小时')">
+                    <div class="portfolio-image">💼</div>
+                    <div class="portfolio-content">
+                        <h3>AI办公自动化</h3>
+                        <p>用AI提升10倍工作效率</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">ChatGPT</span>
+                            <span class="tech-tag">Office</span>
+                            <span class="tech-tag">自动化</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-card" onclick="showVideoWorkModal('AI编程实战', '用AI辅助代码开发', '18个视频 · 4小时')">
+                    <div class="portfolio-image">💻</div>
+                    <div class="portfolio-content">
+                        <h3>AI编程实战</h3>
+                        <p>用AI辅助代码开发</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">GitHub Copilot</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-card" onclick="showVideoWorkModal('AI视频创作', '用AI制作短视频', '12个视频 · 2.5小时')">
+                    <div class="portfolio-image">🎥</div>
+                    <div class="portfolio-content">
+                        <h3>AI视频创作</h3>
+                        <p>用AI制作短视频</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Runway ML</span>
+                            <span class="tech-tag">Pika Labs</span>
+                            <span class="tech-tag">剪映</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-card" onclick="showVideoWorkModal('AI声音克隆', '用AI复制任何人的声音', '9个视频 · 1.5小时')">
+                    <div class="portfolio-image">🎤</div>
+                    <div class="portfolio-content">
+                        <h3>AI声音克隆</h3>
+                        <p>用AI复制任何人的声音</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">ElevenLabs</span>
+                            <span class="tech-tag">语音合成</span>
+                            <span class="tech-tag">AI配音</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-card" onclick="showVideoWorkModal('AI商业应用', 'AI创业与变现指南', '15个视频 · 3小时')">
+                    <div class="portfolio-image">💰</div>
+                    <div class="portfolio-content">
+                        <h3>AI商业应用</h3>
+                        <p>AI创业与变现指南</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">商业模式</span>
+                            <span class="tech-tag">变现策略</span>
+                            <span class="tech-tag">创业指导</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="contact" class="contact" style="display: none;">
+        <!-- 这个区域用于锚点定位，实际内容在弹窗中 -->
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 AI编程知识库. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 主题切换
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        // 检查本地存储的主题偏好
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeToggle.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // 折叠面板功能
+        const collapseHeaders = document.querySelectorAll('.collapse-header');
+        
+        collapseHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const section = header.parentElement;
+                const content = header.nextElementSibling;
+                
+                section.classList.toggle('active');
+                content.classList.toggle('active');
+            });
+        });
+
+        // 分类卡片点击
+        const categoryCards = document.querySelectorAll('.category-card');
+        
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.dataset.category;
+                alert(`打开${card.querySelector('h3').textContent}分类页面`);
+            });
+        });
+
+        // 弹窗功能
+        function showVideoModal(title, description, duration) {
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <button class="close-modal" onclick="this.closest('.modal').remove()">&times;</button>
+                    <h2>${title}</h2>
+                    <p>${description}</p>
+                    <div style="margin: 20px 0;">
+                        <strong>时长:</strong> <span>${duration}</span>
+                    </div>
+                    <div style="background: var(--background); padding: 2rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">🎥</div>
+                        <p style="color: var(--light-text);">视频播放器区域</p>
+                        <button style="background: var(--primary-color); color: white; border: none; padding: 1rem 2rem; border-radius: 8px; cursor: pointer; font-size: 1rem; margin-top: 1rem;" onclick="playVideo()">播放视频</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // AI视频作品弹窗
+        function showVideoWorkModal(title, description, duration) {
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <button class="close-modal" onclick="this.closest('.modal').remove()">&times;</button>
+                    <h2>${title}</h2>
+                    <p>${description}</p>
+                    <div style="margin: 20px 0;">
+                        <strong>时长:</strong> <span>${duration}</span>
+                    </div>
+                    <div style="background: var(--background); padding: 2rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">🎥</div>
+                        <p style="color: var(--light-text); margin-bottom: 1rem;">视频播放器区域</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent;" onclick="this.style.borderColor='var(--primary-color)'">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">1️⃣</div>
+                                <p style="font-size: 0.875rem;">第1讲：基础概念</p>
+                            </div>
+                            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent;" onclick="this.style.borderColor='var(--primary-color)'">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">2️⃣</div>
+                                <p style="font-size: 0.875rem;">第2讲：核心功能</p>
+                            </div>
+                            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent;" onclick="this.style.borderColor='var(--primary-color)'">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">3️⃣</div>
+                                <p style="font-size: 0.875rem;">第3讲：实战技巧</p>
+                            </div>
+                            <div style="background: var(--surface); padding: 1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent;" onclick="this.style.borderColor='var(--primary-color)'">
+                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📚</div>
+                                <p style="font-size: 0.875rem;">查看全部</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button style="background: var(--primary-color); color: white; border: none; padding: 1rem 2rem; border-radius: 8px; cursor: pointer; font-size: 1rem; margin-right: 1rem;" onclick="playVideo()">开始学习</button>
+                        <button style="background: var(--surface); color: var(--text-color); border: 1px solid var(--border-color); padding: 1rem 2rem; border-radius: 8px; cursor: pointer; font-size: 1rem;" onclick="this.closest('.modal').remove()">加入收藏</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function playVideo() {
+            alert('视频播放中...');
+        }
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // 添加滚动显示动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 观察元素
+        document.querySelectorAll('.category-card, .portfolio-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // 联系我们弹窗
+        function showContactModal() {
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <button class="close-modal" onclick="this.closest('.modal').remove()">&times;</button>
+                    <h2>联系我们</h2>
+                    <div style="background: var(--background); padding: 1.5rem; border-radius: 12px; margin: 20px 0;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
+                            <div style="font-size: 2rem;">📧</div>
+                            <div>
+                                <h3>邮箱</h3>
+                                <p>contact@aicode.com</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
+                            <div style="font-size: 2rem;">📱</div>
+                            <div>
+                                <h3>电话</h3>
+                                <p>400-123-4567</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem; gap: 1rem;">
+                            <div style="font-size: 2rem;">💬</div>
+                            <div>
+                                <h3>在线客服</h3>
+                                <p>工作日 9:00-18:00</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="font-size: 2rem;">📍</div>
+                            <div>
+                                <h3>地址</h3>
+                                <p>北京市海淀区中关村软件园</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button style="background: var(--primary-color); color: white; border: none; padding: 1rem 2rem; border-radius: 8px; cursor: pointer; font-size: 1rem;" onclick="this.closest('.modal').remove()">关闭</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // 页面加载完成后的动画
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
